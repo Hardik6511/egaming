@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sixth Element Gaming</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+            font-weight: 600;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dc2626 0%, #7c3aed 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav a:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: width 0.3s;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #7c3aed 0%, #dc2626 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            top: 20%;
+            left: 10%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 700;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #dc2626 0%, #7c3aed 100%);
+            color: #fff;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.6);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #dc2626 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #7c3aed 0%, #dc2626 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        .game-card p {
+            font-weight: 600;
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.4);
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .events {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 5rem 2rem;
+        }
+
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .events h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #dc2626 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .event-item:nth-child(1) { animation-delay: 0.1s; }
+        .event-item:nth-child(2) { animation-delay: 0.2s; }
+        .event-item:nth-child(3) { animation-delay: 0.3s; }
+        .event-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .event-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .event-date {
+            color: #dc2626;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .event-item h3 {
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .event-item p {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            background: #0a0e27;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 2px solid #dc2626;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: #dc2626;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #7c3aed;
+            transform: scale(1.2);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #7c3aed 0%, #dc2626 100%);
+            border-radius: 15px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card div:last-child {
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">⚡ Sixth Element Gaming </div>
+        <nav class="nav">
+            <a href="#home">Home</a>
+            <a href="#games">Games</a>
+            <a href="#events">Events</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to S.E.G.</h1>
+            <p>Your College's Premier eGaming Community</p>
+            <button class="cta-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfhLTCswZo0JbQXuTlheTsdkeJQCVzayP3k_Dq5m6WRIBc2kQ/viewform?usp=header', '_blank')">Apply for Registration</button>
+        </div>
+    </section>
+
+    <section id="games" class="section">
+        <h2>Games We Play</h2>
+        <div class="games-grid">
+            <div class="game-card" onclick="showGameInfo('BGMI')">
+                <h3>🎯 BGMI</h3>
+                <p>Battle Royale action. Squad up and dominate!</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('COD Mobile')">
+                <h3>🔫 COD Mobile</h3>
+                <p>Fast-paced shooter. Join our ranked teams.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('Asphalt')">
+                <h3>🏎️ Asphalt</h3>
+                <p>High-speed racing. Competitive tournaments.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('Among Us')">
+                <h3>🔍 Among Us</h3>
+                <p>Social deduction fun. Weekly game nights.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('Minecraft')">
+                <h3>⛏️ Minecraft</h3>
+                <p>Build and survive. Join our creative server.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('Fall Guys')">
+                <h3>🎪 Fall Guys</h3>
+                <p>Chaotic fun. Community tournaments.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('Valorant')">
+                <h3>💥 Valorant</h3>
+                <p>Tactical 5v5 shooter. Weekly scrims.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('CS2')">
+                <h3>🎮 CS2</h3>
+                <p>Competitive FPS. Daily practice sessions.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('GTA V')">
+                <h3>🚗 GTA V</h3>
+                <p>Open-world chaos. Roleplay and races.</p>
+            </div>
+            <div class="game-card" onclick="showGameInfo('Free Fire')">
+                <h3>🔥 Free Fire</h3>
+                <p>Battle Royale excitement. Squad matches.</p>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="members">30+</div>
+                <div>Active Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="tournaments">4</div>
+                <div>Tournaments Held</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="teams">3</div>
+                <div>Competitive Teams</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="events">
+        <div class="section">
+            <h2>Upcoming Events</h2>
+            <div class="event-list">
+                <div class="event-item">
+                    <div class="event-date">📅 Coming Soon</div>
+                    <h3>Stay Tuned!</h3>
+                    <p>Exciting tournaments and events are being planned. Follow our social media for updates!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Get In Touch</h2>
+        <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; font-weight: 700;">
+            Join our Discord server or follow us on social media to stay updated!
+        </p>
+        <div class="social-links">
+            <a href="#" title="Discord">💬 Discord</a>
+            <a href="#" title="Instagram">📸 Instagram</a>
+            <a href="mailto:info@segesports.com" title="Email">✉️ Mail</a>
+            <a href="#" title="YouTube">📺 YouTube</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p style="font-weight: 700;">&copy; 2025 S.E.G. eSports Club. All rights reserved.</p>
+        <p style="margin-top: 1rem; opacity: 0.7; font-weight: 600;">Level up your college experience!</p>
+    </footer>
+
+    <script>
+        function showGameInfo(game) {
+            alert(`🎮 ${game}\n\nClick to learn more about our ${game} teams and schedules!\n\nJoin our Discord for practice times and team signups.`);
+        }
+
+        function showJoinMessage() {
+            const message = `
+🎮 Ready to Join S.E.G. eSports?
+
+Follow these steps:
+1. Join our Discord server
+2. Introduce yourself in #introductions
+3. Check out #game-roles to select your games
+4. Attend our next meetup!
+
+We're excited to game with you! 🚀
+            `;
+            alert(message.trim());
+        }
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        function animateStats() {
+            const members = document.getElementById('members');
+            const tournaments = document.getElementById('tournaments');
+            const teams = document.getElementById('teams');
+
+            animateValue(members, 0, 30, 2000, '+');
+            animateValue(tournaments, 0, 4, 2000, '');
+            animateValue(teams, 0, 3, 2000, '');
+        }
+
+        function animateValue(element, start, end, duration, suffix = '') {
+            const range = end - start;
+            const increment = range / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    element.textContent = end + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + suffix;
+                }
+            }, 16);
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
