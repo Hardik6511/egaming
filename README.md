@@ -21,9 +21,4 @@ This project focuses on clean UI, structured layout, and responsive design for a
 
 ## 🛠️ Technologies Used
 - **HTML5** – Structure and content  
-- **CSS3** – Styling and responsive layout  
-- **JavaScript** – Basic interactivity *(if used)*  
-
----
-
-## 📂 Project Structure
+  
